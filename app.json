@@ -1,6 +1,8 @@
 {
   "expo": {
-    "name": "entrega-final",
+    "name": "proyecto-coder-mobile",
+
+    "displayName": "Proyecto Coder Mobile",
     "slug": "entrega-final",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -25,8 +27,6 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      "expo-sqlite"
-    ]
+    "plugins": ["expo-sqlite"]
   }
 }
