@@ -1,37 +1,49 @@
 // src/screens/DeviceScreen.jsx
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, Button, Image } from 'react-native';
+import { View, Text, Button, Image, StyleSheet } from 'react-native';
 import { Camera } from 'expo-camera';
 
 export default function DeviceScreen() {
-  const [hasPerm, setHasPerm] = useState(null);
-  const [photoUri, setPhotoUri] = useState(null);
-  const camRef = useRef();
+  const [perm, setPerm]   = useState(null);
+  const [uri, setUri]     = useState(null);
+  const camRef            = useRef(null);
 
   useEffect(() => {
     (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPerm(status === 'granted');
+      setPerm(status === 'granted');
     })();
   }, []);
 
-  if (hasPerm === false) return <Text>Permiso denegado</Text>;
-  if (photoUri) return (
-    <View style={{ flex:1, justifyContent:'center', alignItems:'center' }}>
-      <Image source={{ uri: photoUri }} style={{ width:300, height:400 }} />
-      <Button title="Tomar otra" onPress={() => setPhotoUri(null)} />
-    </View>
-  );
+  if (perm === false) return <Text style={styles.center}>Permiso denegado</Text>;
+  if (uri) {
+    return (
+      <View style={styles.container}>
+        <Image source={{ uri }} style={styles.preview} />
+        <Button title="Tomar otra" onPress={() => setUri(null)} />
+      </View>
+    );
+  }
 
   return (
-    <View style={{ flex:1 }}>
-      <Camera style={{ flex:1 }} ref={camRef} />
-      <Button title="Capturar" onPress={async () => {
-        if (camRef.current) {
-          const foto = await camRef.current.takePictureAsync();
-          setPhotoUri(foto.uri);
-        }
-      }} />
+    <View style={styles.container}>
+      <Camera style={styles.camera} ref={camRef} />
+      <Button
+        title="Capturar foto"
+        onPress={async () => {
+          if (camRef.current) {
+            const foto = await camRef.current.takePictureAsync();
+            setUri(foto.uri);
+          }
+        }}
+      />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: { flex:1, justifyContent:'center', alignItems:'center', backgroundColor:'#000' },
+  camera:    { flex:1, width:'100%' },
+  preview:   { width:300, height:400, borderRadius:8 },
+  center:    { flex:1, textAlign:'center', textAlignVertical:'center' }
+});
