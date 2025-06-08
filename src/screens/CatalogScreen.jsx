@@ -1,5 +1,5 @@
 // src/screens/CatalogScreen.jsx
-import React from "react";
+import React, { useLayoutEffect } from "react";
 import { View, FlatList, StyleSheet, Button } from "react-native";
 import ItemCard from "../components/ItemCard";
 import products from "../services/products";
@@ -12,12 +12,32 @@ export default function CatalogScreen({ navigation }) {
     />
   );
 
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          title="Cerrar sesión"
+          onPress={async () => {
+            try {
+              await signOut();
+              navigation.replace("Login");
+            } catch (err) {
+              Alert.alert("Error", "No se pudo cerrar sesión");
+            }
+          }}
+        />
+      ),
+    });
+  }, [navigation]);
+
   return (
     <View style={styles.container}>
-        <Button
+      <Button
         title="Ver carrito"
         onPress={() => navigation.navigate("Carrito")}
       />
+      <Button title="Device" onPress={() => navigation.navigate("Device")} />
+
       <FlatList
         data={products}
         renderItem={renderItem}
@@ -29,7 +49,6 @@ export default function CatalogScreen({ navigation }) {
           index,
         })}
       />
-      
     </View>
   );
 }
