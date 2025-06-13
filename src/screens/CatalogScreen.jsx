@@ -20,7 +20,7 @@ export default function CatalogScreen({ navigation }) {
           onPress={async () => {
             try {
               await signOut();
-              navigation.replace("Login");
+              navigation.navigate("Login");
             } catch (err) {
               Alert.alert("Error", "No se pudo cerrar sesión");
             }

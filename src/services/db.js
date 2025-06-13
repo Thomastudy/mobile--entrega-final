@@ -50,7 +50,7 @@ export function saveItem(productId) {
   );
 }
 
-// (Opcional) borrar item
+// borrar item
 export function deleteItem(productId) {
   if (!db) return;
   db.isInTransactionAsync((tx) =>
@@ -63,7 +63,7 @@ export function deleteItem(productId) {
   );
 }
 
-// (Opcional) vaciar todo el carrito
+//  vaciar todo el carrito
 export function clearCartDB() {
   if (!db) return;
   db.isInTransactionAsync((tx) =>

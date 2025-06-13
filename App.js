@@ -4,19 +4,25 @@ import { Provider } from "react-redux";
 import store from "./src/store/store";
 import AppNavigator from "./src/navigation/AppNavigator";
 import { initDB, fetchCartFromDB } from "./src/services/db";
-import { auth, database } from "./src/services/firebase";
+import { database } from "./src/services/firebase";
 import { ref, onValue } from "firebase/database";
 import { loadCart } from "./src/store/cartSlice";
+import { onAuthStateChanged } from "firebase/auth";
 
 export default function App() {
   useEffect(() => {
+    console.log("por aca bien");
+
     initDB();
+    console.log("por aca tsmbien");
     fetchCartFromDB();
   }, []);
 
   useEffect(() => {
     // 1) Espera a la sesión
-    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+    console.log("por aca bien");
+
+    const unsubscribeAuth = onAuthStateChanged((user) => {
       if (!user) return;
       const uid = user.uid;
 

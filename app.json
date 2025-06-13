@@ -27,6 +27,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-sqlite"]
+    "plugins": ["expo-sqlite"],
+    "scheme": "ruralanasapp",
+    "extra": {
+      "firebaseClientId": "1:700239160623:web:3ec1cd86d546a838756dda.apps.googleusercontent.com"
+    }
   }
 }
