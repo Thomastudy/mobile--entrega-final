@@ -1,7 +1,8 @@
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { useSignupMutation } from "../../store/authApi";
+import { useEffect } from "react";
 
-export const SignUpScreen = () => {
+export default function SignUpScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [SignUp, { isLoading, error }] = useSignupMutation();
@@ -33,7 +34,7 @@ export const SignUpScreen = () => {
       {error && <Text style={styles.error}>{error.message}</Text>}
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

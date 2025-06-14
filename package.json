@@ -2,6 +2,7 @@
   "name": "entrega-final",
   "version": "1.0.0",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",
@@ -26,7 +27,11 @@
     "react-redux": "^9.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@expo/metro-config": "^0.20.14",
+    "babel-preset-expo": "^13.2.0",
+    "install": "^0.13.0",
+    "npm": "^11.4.2"
   },
   "private": true
 }

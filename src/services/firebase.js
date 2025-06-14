@@ -8,9 +8,10 @@ const firebaseConfig = {
   authDomain: "proyecto-coder-mobile.firebaseapp.com",
   databaseURL: "https://proyecto-coder-mobile-default-rtdb.firebaseio.com",
   projectId: "proyecto-coder-mobile",
-  storageBucket: "proyecto-coder-mobile.appspot.com",
+  storageBucket: "proyecto-coder-mobile.firebasestorage.app",
   messagingSenderId: "700239160623",
   appId: "1:700239160623:web:3ec1cd86d546a838756dda",
+  measurementId: "G-JFFK7N2PSF"
 };
 
 // Inicializa la app
