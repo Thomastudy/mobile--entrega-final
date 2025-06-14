@@ -3,23 +3,28 @@ import { useState } from "react";
 import { View, Button, StyleSheet, Text, TextInput, Alert } from "react-native";
 import { useLoginMutation } from "../../store/authApi";
 import { useNavigation } from "@react-navigation/native";
-import { auth } from "../../services/firebase";
 import { useDispatch } from "react-redux";
+import { setAuthUser } from "../../features/authSlice";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [login, { isLoading, error }] = useLoginMutation();
-  
+
+  const dispatch = useDispatch();
+
   const navigation = useNavigation();
 
   const handleLogin = async () => {
     if (email && password) {
       try {
-        await login({
+        const result = await login({
           email,
           password,
         });
+        console.log(result);
+
+        if (result) dispatch(setAuthUser(result.email, result.localId));
       } catch (err) {
         console.error("Login error:", err);
         Alert.alert("Error de login", err.message || "Revisa tus datos");

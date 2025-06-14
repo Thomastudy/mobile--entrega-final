@@ -6,16 +6,19 @@ const initialState = {
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: {
+    value: {
+      email: "",
+      localId: "",
+    },
+  },
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
-    },
-    logOut: (state) => {
-      state.user = null;
+      state.value.email = action.payload.email;
+      state.value.localId = action.payload.localId;
     },
   },
 });
 
-export const { setUser, logout } = authSlice.actions;
+export const { setAuthUser } = authSlice.actions;
 export default authSlice.reducer;

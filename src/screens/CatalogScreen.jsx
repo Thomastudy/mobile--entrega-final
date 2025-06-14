@@ -43,7 +43,7 @@ export default function CatalogScreen({ navigation }) {
         title="Ver carrito"
         onPress={() => navigation.navigate("Carrito")}
       />
-      <Button title="Device" onPress={() => navigation.navigate("Device")} />
+      <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
 
       <FlatList
         data={products}

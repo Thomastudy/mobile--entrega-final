@@ -13,6 +13,7 @@ import DetailScreen from "../screens/DetailScreen";
 import DeviceScreen from "../screens/DeviceScreen";
 import CartScreen from "../screens/CartScreen";
 import { auth } from "../services/firebase";
+import ProfileScreen from "../screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,7 +38,8 @@ export default function AppNavigator() {
               options={{ title: "Catálogo" }}
             />
             <Stack.Screen name="Detail" component={DetailScreen} />
-            <Stack.Screen name="Device" component={DeviceScreen} />
+            {/* <Stack.Screen name="Device" component={DeviceScreen} /> */}
+            <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Carrito" component={CartScreen} />
           </>
         ) : (
