@@ -3,15 +3,14 @@ import React, { useLayoutEffect } from "react";
 import { View, FlatList, StyleSheet, Button } from "react-native";
 import ItemCard from "../components/ItemCard";
 import products from "../services/products";
+import { useDispatch } from "react-redux";
+import { authApi } from "../store/authApi";
+import { signOut } from "../services/firebase";
 
 export default function CatalogScreen({ navigation }) {
-  const renderItem = ({ item }) => (
-    <ItemCard
-      item={item}
-      onPress={(id) => navigation.navigate("Detail", { productId: id })}
-    />
-  );
+  const dispatch = useDispatch();
 
+  // Ponemos el botón en el header
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -20,7 +19,8 @@ export default function CatalogScreen({ navigation }) {
           onPress={async () => {
             try {
               await signOut();
-              navigation.navigate("Login");
+
+              dispatch(authApi.util.resetApiState());
             } catch (err) {
               Alert.alert("Error", "No se pudo cerrar sesión");
             }
@@ -28,7 +28,14 @@ export default function CatalogScreen({ navigation }) {
         />
       ),
     });
-  }, [navigation]);
+  }, [navigation, dispatch]);
+
+  const renderItem = ({ item }) => (
+    <ItemCard
+      item={item}
+      onPress={(id) => navigation.navigate("Detail", { productId: id })}
+    />
+  );
 
   return (
     <View style={styles.container}>

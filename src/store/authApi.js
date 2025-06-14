@@ -1,26 +1,38 @@
-// src/services/authService.js
+// src/services/authApi.js
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../services/firebase";
 
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl:
-      "https://identitytoolkit.googleapis.com/v1/AIzaSyDhRiKx3mxZkTLQN4JWC3yyOflyxi6hSLk",
+    baseUrl: "https://identitytoolkit.googleapis.com/v1/",
   }),
   endpoints: (builder) => ({
     signup: builder.mutation({
-      query: (auth) => ({
+      query: ({ email, password }) => ({
         url: `accounts:signUp?key=AIzaSyDhRiKx3mxZkTLQN4JWC3yyOflyxi6hSLk`,
         method: "POST",
-        body: auth,
+        body: {
+          email,
+          password,
+          returnSecureToken: true,
+        },
       }),
     }),
     login: builder.mutation({
-      query: (auth) => ({
-        url: `accounts:signInWithPassword?key=AIzaSyDhRiKx3mxZkTLQN4JWC3yyOflyxi6hSLk`,
-        method: "POST",
-        body: auth,
-      }),
+      async queryFn({ email, password }) {
+        try {
+          const userCredential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          return { data: userCredential.user };
+        } catch (error) {
+          return { error: { message: error.message } };
+        }
+      },
     }),
   }),
 });
