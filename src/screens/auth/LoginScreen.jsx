@@ -4,7 +4,7 @@ import { View, Button, StyleSheet, Text, TextInput, Alert } from "react-native";
 import { useLoginMutation } from "../../store/authApi";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import { setAuthUser } from "../../features/authSlice";
+import { setUser } from "../../slices/authSlice";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -18,13 +18,13 @@ export default function LoginScreen() {
   const handleLogin = async () => {
     if (email && password) {
       try {
-        const result = await login({
+        const { email: userEmail, localId: uid } = await login({
           email,
           password,
-        });
-        console.log("email " + result.data.email);
+        }).unwrap();
 
-        if (result) dispatch(setAuthUser(result.data.email, result.localId));
+        // 2) Despacha al slice de Redux
+        dispatch(setUser({ email: userEmail, localId: uid }));
       } catch (err) {
         console.error("Login error:", err);
         Alert.alert("Error de login", err.message || "Revisa tus datos");

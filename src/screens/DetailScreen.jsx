@@ -6,7 +6,7 @@ import { saveItem } from "../services/db";
 import { ref, set } from "firebase/database";
 import { auth, database } from "../services/firebase";
 import products from "../services/products";
-import { addToCart } from "../features/cartSlice";
+import { addToCart } from "../slices/cartSlice";
 
 export default function DetailScreen({ route }) {
   const { productId } = route.params;

@@ -10,21 +10,38 @@ import SignUpScreen from "../screens/auth/SignUpScreen";
 
 import CatalogScreen from "../screens/CatalogScreen";
 import DetailScreen from "../screens/DetailScreen";
-import DeviceScreen from "../screens/DeviceScreen";
 import CartScreen from "../screens/CartScreen";
 import { auth } from "../services/firebase";
 import ProfileScreen from "../screens/ProfileScreen";
+import { useDispatch } from "react-redux";
+import { setUser as setAuthUser } from "../slices/authSlice";
 
 const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
   const [user, setUser] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    
-    const unsubscribe = onAuthStateChanged(auth, setUser);
+    // Nos suscribimos al estado de Firebase Auth
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        // 1) Actualizo local state para renderizar el stack privado
+        setUser(firebaseUser);
+        // 2) Despacho al slice de Redux
+
+        dispatch(
+          setAuthUser({
+            email: firebaseUser.email,
+            localId: firebaseUser.uid,
+          })
+        );
+      } else {
+        setUser(null);
+      }
+    });
     return unsubscribe;
-  }, []);
+  }, [dispatch]);
 
   return (
     <NavigationContainer>
@@ -38,7 +55,6 @@ export default function AppNavigator() {
               options={{ title: "Catálogo" }}
             />
             <Stack.Screen name="Detail" component={DetailScreen} />
-            {/* <Stack.Screen name="Device" component={DeviceScreen} /> */}
             <Stack.Screen name="Profile" component={ProfileScreen} />
             <Stack.Screen name="Carrito" component={CartScreen} />
           </>

@@ -1,7 +1,7 @@
 // src/services/db.js
 import { openDatabaseSync } from "expo-sqlite";
 import store from "../store/store";
-import { loadCart } from "../features/cartSlice";
+import { loadCart } from "../slices/cartSlice";
 
 const db = openDatabaseSync("ruralanas.db");
 

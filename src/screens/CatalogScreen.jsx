@@ -1,6 +1,6 @@
 // src/screens/CatalogScreen.jsx
-import React, { useLayoutEffect } from "react";
-import { View, FlatList, StyleSheet, Button } from "react-native";
+import { useLayoutEffect } from "react";
+import { View, FlatList, StyleSheet, Button, Text } from "react-native";
 import ItemCard from "../components/ItemCard";
 import products from "../services/products";
 import { useDispatch } from "react-redux";
@@ -44,6 +44,7 @@ export default function CatalogScreen({ navigation }) {
         onPress={() => navigation.navigate("Carrito")}
       />
       <Button title="Profile" onPress={() => navigation.navigate("Profile")} />
+      {/* <Text>Hola, {user.email} </Text> */}
 
       <FlatList
         data={products}

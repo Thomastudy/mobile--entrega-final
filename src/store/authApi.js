@@ -28,6 +28,7 @@ export const authApi = createApi({
             email,
             password
           );
+          
           return { data: userCredential.user };
         } catch (error) {
           return { error: { message: error.message } };

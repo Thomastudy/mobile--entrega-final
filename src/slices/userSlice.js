@@ -1,17 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  value: {
-    profilePicture: "",
-  },
-};
-
 const userSlice = createSlice({
   name: "user",
-  initialState,
+  initialState: {
+    profilePicture: "",
+  },
   reducers: {
     setProfilePicture: (state, action) => {
-      state.value.profilePicture = action.payload;
+      state.profilePicture = action.payload;
     },
   },
 });

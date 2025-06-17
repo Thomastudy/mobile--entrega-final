@@ -1,7 +1,13 @@
 // src/services/firebase.js
 import { initializeApp } from "firebase/app";
-import { getReactNativePersistence, initializeAuth,signOut as fbSignOut } from "firebase/auth";
+import {
+  getReactNativePersistence,
+  initializeAuth,
+  signOut as fbSignOut,
+} from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getStorage } from "firebase/storage";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDhRiKx3mxZkTLQN4JWC3yyOflyxi6hSLk",
@@ -11,7 +17,7 @@ const firebaseConfig = {
   storageBucket: "proyecto-coder-mobile.firebasestorage.app",
   messagingSenderId: "700239160623",
   appId: "1:700239160623:web:3ec1cd86d546a838756dda",
-  measurementId: "G-JFFK7N2PSF"
+  measurementId: "G-JFFK7N2PSF",
 };
 
 // Inicializa la app
@@ -21,9 +27,12 @@ const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage),
 });
 
+export const database = getDatabase(app);
+
+export const storage = getStorage(app);
+
 export { auth };
 export const FIREBASE_APP = initializeApp(firebaseConfig);
 
 export const signOut = () => fbSignOut(auth);
 // export const database = getDatabase(app);
-
