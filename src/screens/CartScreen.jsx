@@ -1,9 +1,8 @@
 // src/screens/CartScreen.jsx
-import React from 'react';
 import { View, Text, FlatList, Button, StyleSheet, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import products from '../services/products';
-import { clearCart, removeFromCart } from '../store/cartSlice';
+import { clearCart, removeFromCart } from '../features/cartSlice';
 import { clearCartDB, deleteItem } from '../services/db';
 import { auth, database } from '../services/firebase';
 import { ref, remove } from 'firebase/database';

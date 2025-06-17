@@ -2,11 +2,11 @@
 import React from "react";
 import { View, Text, Image, Button, Alert, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../store/cartSlice";
 import { saveItem } from "../services/db";
 import { ref, set } from "firebase/database";
 import { auth, database } from "../services/firebase";
 import products from "../services/products";
+import { addToCart } from "../features/cartSlice";
 
 export default function DetailScreen({ route }) {
   const { productId } = route.params;

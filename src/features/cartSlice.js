@@ -1,5 +1,5 @@
 // src/store/cartSlice.js
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [], // array de { productId: string, qty: number }
@@ -27,7 +27,7 @@ const cartSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       state.items = state.items.filter((i) => i.productId !== action.payload);
-    },  
+    },
   },
 });
 

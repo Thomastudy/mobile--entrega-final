@@ -13,39 +13,45 @@ import CameraIcon from "../components/CameraIcon";
 import * as ImagePicker from "expo-image-picker";
 import { setProfilePicture } from "../features/userSlice";
 
+
 export default function ProfileScreen() {
-  const email = useSelector((state) => state.authReducer.value.email);
+  const email = useSelector((state) => state.auth.email);
+  // console.log(email);
+
   const profilePicture = useSelector(
-    (state) => state.userReducer.value.profilePicture
+    (state) => state.auth.profilePicture
   );
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const initial = email ? email.charAt(0).toUpperCase() : "?";
-  const onPressCamera = () => {
-    console.log("Abrir cámara / galería");
-  };
 
   const verifyCameraPermissions = async () => {
     const { granted } = await ImagePicker.requestCameraPermissionsAsync();
+    console.log("permision granted? ", granted);
+
     if (!granted) return false;
     return true;
   };
 
-  const pisckImage = async () => {
-    const isPermissionOk = await verifyCameraPermissions()
-    if(isPermissionOk) {
-        let result = await ImagePicker.launchCameraAsync({
-            allowsEditing:true,
-            aspect:[1,1],
-            base64: true,
-            quality:0.6
-        })
-        if(!result.canceled){
-            dispatch(setProfilePicture(`data:image/jpeg;base64,${result.assets[0].base64}`))
-        }
+  const pickImage = async () => {
+    console.log("permision? ", verifyCameraPermissions);
+    
+    const isPermissionOk = await verifyCameraPermissions();
+    if (isPermissionOk) {
+      let result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [1, 1],
+        base64: true,
+        quality: 0.6,
+      });
+      if (!result.canceled) {
+        dispatch(
+          setProfilePicture(`data:image/jpeg;base64,${result.assets[0].base64}`)
+        );
+      }
     }
-  }
+  };
 
   return (
     <View style={styles.container}>
@@ -63,7 +69,7 @@ export default function ProfileScreen() {
             styles.cameraButton,
             pressed && { opacity: 0.7 },
           ]}
-          onPress={onPressCamera}
+          
         >
           <CameraIcon width={20} height={20} color="#fff" />
         </Pressable>

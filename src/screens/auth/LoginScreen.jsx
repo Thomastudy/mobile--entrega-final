@@ -22,9 +22,9 @@ export default function LoginScreen() {
           email,
           password,
         });
-        console.log(result);
+        console.log("email " + result.data.email);
 
-        if (result) dispatch(setAuthUser(result.email, result.localId));
+        if (result) dispatch(setAuthUser(result.data.email, result.localId));
       } catch (err) {
         console.error("Login error:", err);
         Alert.alert("Error de login", err.message || "Revisa tus datos");
